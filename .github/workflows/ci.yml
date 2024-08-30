@@ -1,0 +1,39 @@
+name: course-CI
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+jobs:
+  checker:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      
+      - name: Checkout submodule
+        run: git submodule update --init --recursive --remote
+      
+      - name: Linter
+        uses: cpp-linter/cpp-linter-action@v2
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          style: 'course-settings/clang-format.json'
+          tidy-checks: 'course-settings/clang-tidy.json'
+          step-summary: true
+          version: '18'
+          extra-args: '-std=c++20'
+      
+      - name: Check linter fail
+        if: steps.linter.outputs.checks-failed > 0
+        run: echo "Check CI summary for linter report" && exit 1
+
+      - name: Install requirements
+        run: pip3 install -r course-settings/requirements.txt
+      
+      - name: Run checker
+        run: python3 course-settings/checker/main.py
