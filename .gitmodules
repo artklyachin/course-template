@@ -1,0 +1,4 @@
+[submodule "course-settings"]
+	path = course-settings
+	url = https://github.com/ads-course-spring-2024/course-settings/
+	branch = main
