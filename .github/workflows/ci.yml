@@ -5,6 +5,7 @@ on:
     branches: ["main"]
   workflow_dispatch:
 jobs:
+  runs-on: ubuntu-latest
   checker:
     steps:
       - name: Checkout repository
