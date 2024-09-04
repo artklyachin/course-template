@@ -15,8 +15,8 @@ RUN pip3 install -r course-settings/requirements.txt
 ENV GITHUB_TOKEN=""
 ENV GITHUB_HEAD_REF=""
 
-# CMD ["python3", "course-settings/checker/main.py", "GITHUB_TOKEN"]
-CMD ["/bin/bash"]
+CMD ["python3", "course-settings/checker/main.py", "GITHUB_TOKEN"]
+# CMD ["/bin/bash"]
 
 # docker build -t checker-image .
 # docker start checker-image 
