@@ -25,7 +25,7 @@ jobs:
             -e GITHUB_TOKEN=${GITHUB_TOKEN} \
             -e GITHUB_HEAD_REF=${GITHUB_HEAD_REF} \
             checker-image
-            
+
       - name: Checker fail
         if: failure()
         run: echo "Check CI summary for report" && exit 1
