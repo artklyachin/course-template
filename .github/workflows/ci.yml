@@ -6,15 +6,26 @@ on:
   workflow_dispatch:
 jobs:
   checker:
-    runs-on: ubuntu:20.04
+    runs-on: ubuntu-20.04
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Build Docker image
-          run: |
-            docker build -t checker-image .
+        run: |
+          docker build -t checker-image .
+
       - name: Run docker
-          id: run-checker
-          run: |
-            docker run checker-image -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} GITHUB_HEAD_REF=${{ GITHUB_HEAD_REF }}
+        id: run-checker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          docker run --rm \
+            -e GITHUB_TOKEN=${GITHUB_TOKEN} \
+            -e GITHUB_HEAD_REF=${GITHUB_HEAD_REF} \
+            checker-image
+
       - name: Checker fail
-        if: steps.run-checker.outputs.checks-failed > 0
+        if: failure()
         run: echo "Check CI summary for report" && exit 1
