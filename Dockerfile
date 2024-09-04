@@ -14,9 +14,6 @@ RUN rm -rf .git*
 RUN git clone https://github.com/artklyachin/course-settings/ 
 RUN pip3 install -r course-settings/requirements.txt
 
-RUN cp ./course-settings/clang-format.json .clang-format
-RUN cp ./course-settings/clang-tidy.json .clang-tidy
-
 ENV GITHUB_TOKEN=""
 ENV GITHUB_HEAD_REF=""
 
