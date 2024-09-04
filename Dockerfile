@@ -2,7 +2,9 @@ FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install -y \
     python3-pip \
-    git
+    git \
+    clang-tidy \
+    clang-format 
 
 WORKDIR /home/root
 
@@ -19,4 +21,4 @@ CMD ["python3", "course-settings/checker/main.py", "GITHUB_TOKEN"]
 # CMD ["/bin/bash"]
 
 # docker build -t checker-image .
-# docker start checker-image 
+# docker run -it checker-image 
