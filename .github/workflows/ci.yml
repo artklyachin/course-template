@@ -11,9 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: |
-          docker build -t checker-image .
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t checker-image .
 
       - name: Run docker
         id: run-checker
