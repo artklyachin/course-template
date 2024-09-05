@@ -22,9 +22,10 @@ jobs:
           GITHUB_HEAD_REF: ${{ github.head_ref }}
         run: |
           docker run --rm \
+            -v ${{ github.workspace }}:/data \
             -e GITHUB_TOKEN=${GITHUB_TOKEN} \
             -e GITHUB_HEAD_REF=${GITHUB_HEAD_REF} \
-            checker-image
+            artcosmos/checker-image:latest
 
       - name: Checker fail
         if: failure()
